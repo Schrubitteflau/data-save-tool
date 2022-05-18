@@ -7,5 +7,5 @@ const plugins = {
 export function callPlugin(pluginName)
 {
     const plugin = plugins[pluginName];
-    console.log(plugin);
+    plugin();
 }
