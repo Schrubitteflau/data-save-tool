@@ -1,11 +1,16 @@
-import spotify from "./spotify.js";
+import Spotify from "./Spotify.js";
 
 const plugins = {
-    spotify
+    Spotify
 };
 
-export function callPlugin(pluginName)
+/**
+ * @param {string} pluginName 
+ * @returns {Promise<void>} 
+ */
+export async function callPlugin(pluginName)
 {
-    const plugin = plugins[pluginName];
-    plugin();
+    const pluginClass = plugins[pluginName];
+    const pluginInstance = new pluginClass();
+    await pluginInstance.execute();
 }
