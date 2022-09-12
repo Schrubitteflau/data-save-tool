@@ -35,3 +35,21 @@ export async function createTextFileUTF8(fullPath: string, content: string): Pro
         encoding: "utf-8"
     });
 }
+
+// ES6 version using asynchronous iterators, compatible with node v10.0+
+
+export async function* walkDir(dir: string): AsyncIterableIterator<string>
+{
+    for await (const file of await fs.opendir(dir))
+    {
+        const fullPath: string = path.join(dir, file.name);
+        if (file.isDirectory())
+        {
+            yield* walkDir(fullPath);
+        }
+        else if (file.isFile())
+        {
+            yield fullPath;
+        }
+    }
+}

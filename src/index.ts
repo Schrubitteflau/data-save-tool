@@ -5,6 +5,7 @@ import inquirerSelectDirectory from "inquirer-select-directory";
 
 import { setConfig } from "./config";
 import { getPlugin, getPlugins } from "./plugins";
+import { walkDir } from "./util";
 
 inquirer.registerPrompt("directory", inquirerSelectDirectory);
 
@@ -43,6 +44,15 @@ async function selectPlugin()
 
 async function main()
 {
+    let i = 0;
+    for await (const p of walkDir('/path/to/folder'))
+    {
+        i++
+        console.log(p);
+    }
+    console.log(i)
+    return
+
     const plugin = await selectPlugin();
     console.log(plugin);
     return;
